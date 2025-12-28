@@ -1,7 +1,7 @@
 import React from 'react';
-import { 
-  Scale, Users, Briefcase, Gavel, ShieldCheck, 
-  FileText, MessageSquare, Search, Award, CheckCircle, 
+import {
+  Scale, Users, Briefcase, Gavel, ShieldCheck,
+  FileText, MessageSquare, Search, Award, CheckCircle,
   Home, Landmark, Zap, CreditCard, ShieldAlert, Gavel as GavelIcon
 } from 'lucide-react';
 import { PracticeArea, NavItem } from './types';
@@ -11,7 +11,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'O nama', href: '#o-nama' },
   { label: 'Usluge', href: '#usluge' },
   { label: 'Uspesi', href: '#uspesi' },
-  { label: 'Asistent', href: '#asistent' },
+
   { label: 'FAQ', href: '#faq' },
   { label: 'Kontakt', href: '#kontakt' },
 ];
