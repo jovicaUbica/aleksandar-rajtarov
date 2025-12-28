@@ -1,2 +1,5 @@
 
-/* Prazan fajl za stabilnost build procesa */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
