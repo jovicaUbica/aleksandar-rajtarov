@@ -22,7 +22,7 @@ function App() {
         <Cases />
         <Process />
         <Testimonials />
-        <ChatAssistant />
+
         <FAQ />
         <Contact />
       </main>
