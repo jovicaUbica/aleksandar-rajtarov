@@ -92,7 +92,7 @@ const Contact: React.FC = () => {
                 ) : (
                   <form
                     className="space-y-6 w-full"
-                    action="https://formspree.io/f/xpqzjaeg"
+                    action="https://formsubmit.co/jivkovic806@gmail.com"
                     method="POST"
                     onSubmit={async (e) => {
                       e.preventDefault();
@@ -108,7 +108,7 @@ const Contact: React.FC = () => {
                       }
 
                       try {
-                        const response = await fetch("https://formspree.io/f/xpqzjaeg", {
+                        const response = await fetch("https://formsubmit.co/jivkovic806@gmail.com", {
                           method: 'POST',
                           body: formData,
                           headers: {
@@ -138,6 +138,11 @@ const Contact: React.FC = () => {
                       }
                     }}
                   >
+                    {/* FormSubmit.co Configuration */}
+                    <input type="hidden" name="_subject" value="Novi upit sa sajta (Advokat Rajtarov)" />
+                    <input type="hidden" name="_template" value="table" />
+                    <input type="hidden" name="_captcha" value="false" />
+
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Vaše Ime</label>
