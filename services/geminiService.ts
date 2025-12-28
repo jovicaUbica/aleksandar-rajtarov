@@ -1,4 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export const getLegalAssistantResponse = async (userMessage: string) => {
   try {
@@ -8,20 +8,18 @@ export const getLegalAssistantResponse = async (userMessage: string) => {
       return "Greška: Nedostaje API ključ.";
     }
 
-    const ai = new GoogleGenAI({ apiKey });
-
-    const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash-001',
-      contents: userMessage,
-      config: {
-        systemInstruction: `Vi ste Virtuelni Asistent u advokatskoj kancelariji Aleksandra Rajtarova. 
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction: `Vi ste Virtuelni Asistent u advokatskoj kancelariji Aleksandra Rajtarova. 
         Vaša uloga je da klijentu pružite BRZE PRELIMINARNE informacije i opšte pravne smernice dok ne stupi u kontakt sa advokatom. 
         Predstavite se kao asistent advokata Rajtarova. Odgovarajte isključivo na srpskom jeziku.`,
-        temperature: 0.7,
-      },
     });
 
-    return response.text || "Asistent trenutno nije dostupan.";
+    const result = await model.generateContent(userMessage);
+    const response = await result.response;
+
+    return response.text() || "Asistent trenutno nije dostupan.";
   } catch (error: any) {
     console.error("Gemini API Error Details:", error);
     if (error.message) console.error("Error Message:", error.message);
