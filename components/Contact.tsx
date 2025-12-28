@@ -75,7 +75,7 @@ const Contact: React.FC = () => {
               {/* Formspree Contact Form Integration */}
               <form
                 className="space-y-6 relative z-10"
-                action="https://formspree.io/f/YOUR_FORM_ID_HERE"
+                action="https://formspree.io/f/xpqzjaeg"
                 method="POST"
                 onSubmit={async (e) => {
                   e.preventDefault();
