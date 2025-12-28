@@ -96,16 +96,19 @@ const Contact: React.FC = () => {
                     method="POST"
                     onSubmit={async (e) => {
                       e.preventDefault();
-                      const form = e.target as HTMLFormElement;
+                      const form = e.currentTarget;
                       const formData = new FormData(form);
 
                       const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-                      const originalText = submitBtn.innerText;
-                      submitBtn.disabled = true;
-                      submitBtn.innerText = "SLANJE...";
+                      let originalText = "Pošaljite poverljivi upit";
+                      if (submitBtn) {
+                        originalText = submitBtn.innerText;
+                        submitBtn.disabled = true;
+                        submitBtn.innerText = "SLANJE...";
+                      }
 
                       try {
-                        const response = await fetch(form.action, {
+                        const response = await fetch("https://formspree.io/f/xpqzjaeg", {
                           method: 'POST',
                           body: formData,
                           headers: {
@@ -117,10 +120,16 @@ const Contact: React.FC = () => {
                           setSubmitted(true);
                           form.reset();
                         } else {
-                          alert("Došlo je do greške. Molimo proverite sva polja ili pokušajte ponovo.");
+                          const data = await response.json();
+                          if (data.errors) {
+                            alert("Greška: " + data.errors.map((err: any) => err.message).join(", "));
+                          } else {
+                            alert("Došlo je do greške prilikom slanja. Molimo pokušajte ponovo.");
+                          }
                         }
                       } catch (error) {
-                        alert("Došlo je do greške prilikom slanja. Proverite internet konekciju.");
+                        console.error("Form error:", error);
+                        alert("Došlo je do greške. Proverite internet konekciju.");
                       } finally {
                         if (submitBtn) {
                           submitBtn.disabled = false;
