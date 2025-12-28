@@ -73,71 +73,91 @@ const Contact: React.FC = () => {
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 -rotate-45 translate-x-16 -translate-y-16"></div>
 
               {/* Formspree Contact Form Integration */}
-              <form
-                className="space-y-6 relative z-10"
-                action="https://formspree.io/f/xpqzjaeg"
-                method="POST"
-                onSubmit={async (e) => {
-                  e.preventDefault();
-                  const form = e.target as HTMLFormElement;
-                  const formData = new FormData(form);
+              <div className="relative z-10 min-h-[400px] flex items-center justify-center">
+                {submitted ? (
+                  <div className="text-center animate-fade-in p-8 w-full">
+                    <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                      <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                    <h3 className="text-3xl font-serif text-white font-bold mb-4">Hvala na poverenju!</h3>
+                    <p className="text-white/70 text-lg mb-8">Vaš upit je uspešno primljen. Javićemo vam se u najkraćem mogućem roku.</p>
+                    <button
+                      onClick={() => setSubmitted(false)}
+                      className="text-amber-500 text-sm font-bold uppercase tracking-widest hover:text-white transition-colors"
+                    >
+                      Pošaljite novu poruku
+                    </button>
+                  </div>
+                ) : (
+                  <form
+                    className="space-y-6 w-full"
+                    action="https://formspree.io/f/xpqzjaeg"
+                    method="POST"
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const form = e.target as HTMLFormElement;
+                      const formData = new FormData(form);
 
-                  const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-                  const originalText = submitBtn.innerText;
-                  submitBtn.disabled = true;
-                  submitBtn.innerText = "SLANJE...";
+                      const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+                      const originalText = submitBtn.innerText;
+                      submitBtn.disabled = true;
+                      submitBtn.innerText = "SLANJE...";
 
-                  try {
-                    const response = await fetch(form.action, {
-                      method: 'POST',
-                      body: formData,
-                      headers: {
-                        'Accept': 'application/json'
+                      try {
+                        const response = await fetch(form.action, {
+                          method: 'POST',
+                          body: formData,
+                          headers: {
+                            'Accept': 'application/json'
+                          }
+                        });
+
+                        if (response.ok) {
+                          setSubmitted(true);
+                          form.reset();
+                        } else {
+                          alert("Došlo je do greške. Molimo proverite sva polja ili pokušajte ponovo.");
+                        }
+                      } catch (error) {
+                        alert("Došlo je do greške prilikom slanja. Proverite internet konekciju.");
+                      } finally {
+                        if (submitBtn) {
+                          submitBtn.disabled = false;
+                          submitBtn.innerText = originalText;
+                        }
                       }
-                    });
-
-                    if (response.ok) {
-                      alert("Hvala! Vaša poruka je uspešno poslata. Odgovorićemo vam uskoro.");
-                      form.reset();
-                    } else {
-                      alert("Došlo je do greške prilikom slanja. Molimo pokušajte ponovo.");
-                    }
-                  } catch (error) {
-                    alert("Došlo je do greške prilikom slanja. Proverite internet konekciju.");
-                  } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = originalText;
-                  }
-                }}
-              >
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Vaše Ime</label>
-                    <input name="name" type="text" className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20" placeholder="Puno ime i prezime" required />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Kontakt Telefon</label>
-                    <input name="phone" type="tel" className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20" placeholder="+381 6X XXX XXXX" required />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Oblast slučaja</label>
-                  <select name="field" className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white/70 focus:border-amber-500 outline-none transition-all cursor-pointer">
-                    <option className="bg-[#121a2b]" value="Građansko pravo">Građansko pravo</option>
-                    <option className="bg-[#121a2b]" value="Privredno pravo">Privredno pravo</option>
-                    <option className="bg-[#121a2b]" value="Krivično pravo">Krivično pravo</option>
-                    <option className="bg-[#121a2b]" value="Nepokretnosti">Nepokretnosti</option>
-                    <option className="bg-[#121a2b]" value="Ostalo">Ostalo</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Opis slučaja</label>
-                  <textarea name="message" rows={4} className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20" placeholder="Ukratko objasnite vašu situaciju..." required></textarea>
-                </div>
-                <button type="submit" className="w-full bg-amber-600 text-[#121a2b] font-black py-5 rounded-sm hover:bg-amber-500 transition-all uppercase tracking-[0.2em] shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
-                  Pošaljite poverljivi upit
-                </button>
-              </form>
+                    }}
+                  >
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Vaše Ime</label>
+                        <input name="name" type="text" className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20" placeholder="Puno ime i prezime" required />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Kontakt Telefon</label>
+                        <input name="phone" type="tel" className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20" placeholder="+381 6X XXX XXXX" required />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Oblast slučaja</label>
+                      <select name="field" className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white/70 focus:border-amber-500 outline-none transition-all cursor-pointer">
+                        <option className="bg-[#121a2b]" value="Građansko pravo">Građansko pravo</option>
+                        <option className="bg-[#121a2b]" value="Privredno pravo">Privredno pravo</option>
+                        <option className="bg-[#121a2b]" value="Krivično pravo">Krivično pravo</option>
+                        <option className="bg-[#121a2b]" value="Nepokretnosti">Nepokretnosti</option>
+                        <option className="bg-[#121a2b]" value="Ostalo">Ostalo</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Opis slučaja</label>
+                      <textarea name="message" rows={4} className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20" placeholder="Ukratko objasnite vašu situaciju..." required></textarea>
+                    </div>
+                    <button type="submit" className="w-full bg-amber-600 text-[#121a2b] font-black py-5 rounded-sm hover:bg-amber-500 transition-all uppercase tracking-[0.2em] shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                      Pošaljite poverljivi upit
+                    </button>
+                  </form>
+                )}
+              </div>
             </div>
           </div>
         </div>
