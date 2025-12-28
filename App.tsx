@@ -33,7 +33,8 @@ function App() {
         <Footer />
         <WhatsAppButton />
       </div>
-      );
+    </>
+  );
 }
 
-      export default App;
+export default App;
