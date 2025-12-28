@@ -9,9 +9,9 @@ const About: React.FC = () => {
           <div className="w-full lg:w-1/2 relative">
             <div className="relative z-10 rounded-sm overflow-hidden shadow-2xl border-b-8 border-amber-600">
               <img
-                src="/aleksandar-rajtarov.jpg"
+                src="/aleksandar-rajtarov.jpg?v=2"
                 alt="Advokat Aleksandar Rajtarov"
-                className="w-full h-[400px] md:h-[600px] object-cover hover:scale-105 transition-transform duration-700"
+                className="w-full h-[400px] md:h-[600px] object-cover object-top scale-105 hover:scale-110 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#121a2b]/80 to-transparent"></div>
               <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 text-white">
