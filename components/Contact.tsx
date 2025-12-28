@@ -4,6 +4,30 @@ import { MapPin, Phone, Mail, Clock, ExternalLink } from 'lucide-react';
 const Contact: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+
+  const formatPhoneNumber = (value: string) => {
+    // Remove all non-digits
+    const phoneNumber = value.replace(/\D/g, '');
+
+    // Format based on length (XXX XXX XXXX)
+    if (phoneNumber.length <= 3) return phoneNumber;
+    if (phoneNumber.length <= 6) return `${phoneNumber.slice(0, 3)} ${phoneNumber.slice(3)}`;
+    return `${phoneNumber.slice(0, 3)} ${phoneNumber.slice(3, 6)} ${phoneNumber.slice(6, 10)}`;
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneNumber(e.target.value);
+    setPhone(formatted);
+
+    // Basic validation
+    if (formatted.replace(/\s/g, '').length < 9) {
+      setPhoneError("Unesite validan broj telefona");
+    } else {
+      setPhoneError("");
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -150,7 +174,16 @@ const Contact: React.FC = () => {
                       </div>
                       <div>
                         <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Kontakt Telefon</label>
-                        <input name="phone" type="tel" className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20" placeholder="+381 6X XXX XXXX" required />
+                        <input
+                          name="phone"
+                          type="tel"
+                          value={phone}
+                          onChange={handlePhoneChange}
+                          className={`w-full bg-white/5 border ${phoneError ? 'border-red-500' : 'border-white/10'} px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20`}
+                          placeholder="06X XXX XXXX"
+                          required
+                        />
+                        {phoneError && <p className="text-red-500 text-xs mt-1">{phoneError}</p>}
                       </div>
                     </div>
                     <div>
