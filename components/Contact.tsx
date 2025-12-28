@@ -116,7 +116,7 @@ const Contact: React.FC = () => {
                 ) : (
                   <form
                     className="space-y-6 w-full"
-                    action="https://formsubmit.co/jivkovic806@gmail.com"
+                    action="https://formsubmit.co/rajtarovaleksandar44@gmail.com"
                     method="POST"
                     onSubmit={async (e) => {
                       e.preventDefault();
@@ -132,7 +132,7 @@ const Contact: React.FC = () => {
                       }
 
                       try {
-                        const response = await fetch("https://formsubmit.co/jivkovic806@gmail.com", {
+                        const response = await fetch("https://formsubmit.co/rajtarovaleksandar44@gmail.com", {
                           method: 'POST',
                           body: formData,
                           headers: {
