@@ -1,4 +1,3 @@
-```typescript
 import { GoogleGenAI } from "@google/genai";
 
 export const getLegalAssistantResponse = async (userMessage: string) => {
@@ -17,7 +16,7 @@ export const getLegalAssistantResponse = async (userMessage: string) => {
       config: {
         systemInstruction: `Vi ste Virtuelni Asistent u advokatskoj kancelariji Aleksandra Rajtarova. 
         Vaša uloga je da klijentu pružite BRZE PRELIMINARNE informacije i opšte pravne smernice dok ne stupi u kontakt sa advokatom. 
-        Predstavite se kao asistent advokata Rajtarova.Odgovarajte isključivo na srpskom jeziku.`,
+        Predstavite se kao asistent advokata Rajtarova. Odgovarajte isključivo na srpskom jeziku.`,
         temperature: 0.7,
       },
     });
@@ -29,4 +28,3 @@ export const getLegalAssistantResponse = async (userMessage: string) => {
     return "Došlo je do greške. Molimo zakažite konsultacije putem forme.";
   }
 };
-```
