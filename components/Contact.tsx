@@ -3,6 +3,7 @@ import { MapPin, Phone, Mail, Clock, ExternalLink } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
