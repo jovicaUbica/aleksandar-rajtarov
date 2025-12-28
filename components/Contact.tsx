@@ -23,7 +23,7 @@ const Contact: React.FC = () => {
           <div className="w-full lg:w-1/2">
             <h2 className="text-amber-600 text-sm font-bold uppercase tracking-[0.3em] mb-4">Kontakt Centar</h2>
             <h3 className="text-4xl md:text-5xl font-serif text-[#121a2b] font-bold mb-8 italic">Zakažite direktne konsultacije</h3>
-            
+
             <div className="space-y-10">
               <div className="flex items-start gap-6 group">
                 <div className="p-4 bg-[#121a2b] rounded-sm text-amber-500 shadow-xl group-hover:bg-amber-600 group-hover:text-white transition-all">
@@ -37,7 +37,7 @@ const Contact: React.FC = () => {
                   <p className="text-slate-500 text-xs mt-1 uppercase tracking-widest">Dostupan za hitne pozive i poruke</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start gap-6 group">
                 <div className="p-4 bg-[#121a2b] rounded-sm text-amber-500 shadow-xl group-hover:bg-amber-600 group-hover:text-white transition-all">
                   <Mail className="w-6 h-6" />
@@ -71,33 +71,70 @@ const Contact: React.FC = () => {
           <div className="w-full lg:w-1/2">
             <div className="bg-[#121a2b] p-8 md:p-12 rounded-sm shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 -rotate-45 translate-x-16 -translate-y-16"></div>
-              
-              <form className="space-y-6 relative z-10" onSubmit={(e) => e.preventDefault()}>
+
+              {/* Formspree Contact Form Integration */}
+              <form
+                className="space-y-6 relative z-10"
+                action="https://formspree.io/f/YOUR_FORM_ID_HERE"
+                method="POST"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.target as HTMLFormElement;
+                  const formData = new FormData(form);
+
+                  const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+                  const originalText = submitBtn.innerText;
+                  submitBtn.disabled = true;
+                  submitBtn.innerText = "SLANJE...";
+
+                  try {
+                    const response = await fetch(form.action, {
+                      method: 'POST',
+                      body: formData,
+                      headers: {
+                        'Accept': 'application/json'
+                      }
+                    });
+
+                    if (response.ok) {
+                      alert("Hvala! Vaša poruka je uspešno poslata. Odgovorićemo vam uskoro.");
+                      form.reset();
+                    } else {
+                      alert("Došlo je do greške prilikom slanja. Molimo pokušajte ponovo.");
+                    }
+                  } catch (error) {
+                    alert("Došlo je do greške prilikom slanja. Proverite internet konekciju.");
+                  } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalText;
+                  }
+                }}
+              >
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Vaše Ime</label>
-                    <input type="text" className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20" placeholder="Puno ime i prezime" required />
+                    <input name="name" type="text" className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20" placeholder="Puno ime i prezime" required />
                   </div>
                   <div>
                     <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Kontakt Telefon</label>
-                    <input type="tel" className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20" placeholder="+381 6X XXX XXXX" required />
+                    <input name="phone" type="tel" className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20" placeholder="+381 6X XXX XXXX" required />
                   </div>
                 </div>
                 <div>
                   <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Oblast slučaja</label>
-                  <select className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white/70 focus:border-amber-500 outline-none transition-all cursor-pointer">
-                    <option className="bg-[#121a2b]">Građansko pravo</option>
-                    <option className="bg-[#121a2b]">Privredno pravo</option>
-                    <option className="bg-[#121a2b]">Krivično pravo</option>
-                    <option className="bg-[#121a2b]">Nepokretnosti</option>
-                    <option className="bg-[#121a2b]">Ostalo</option>
+                  <select name="field" className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white/70 focus:border-amber-500 outline-none transition-all cursor-pointer">
+                    <option className="bg-[#121a2b]" value="Građansko pravo">Građansko pravo</option>
+                    <option className="bg-[#121a2b]" value="Privredno pravo">Privredno pravo</option>
+                    <option className="bg-[#121a2b]" value="Krivično pravo">Krivično pravo</option>
+                    <option className="bg-[#121a2b]" value="Nepokretnosti">Nepokretnosti</option>
+                    <option className="bg-[#121a2b]" value="Ostalo">Ostalo</option>
                   </select>
                 </div>
                 <div>
                   <label className="block text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">Opis slučaja</label>
-                  <textarea rows={4} className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20" placeholder="Ukratko objasnite vašu situaciju..."></textarea>
+                  <textarea name="message" rows={4} className="w-full bg-white/5 border border-white/10 px-4 py-4 text-white focus:border-amber-500 outline-none transition-all placeholder:text-white/20" placeholder="Ukratko objasnite vašu situaciju..." required></textarea>
                 </div>
-                <button type="submit" className="w-full bg-amber-600 text-[#121a2b] font-black py-5 rounded-sm hover:bg-amber-500 transition-all uppercase tracking-[0.2em] shadow-lg">
+                <button type="submit" className="w-full bg-amber-600 text-[#121a2b] font-black py-5 rounded-sm hover:bg-amber-500 transition-all uppercase tracking-[0.2em] shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
                   Pošaljite poverljivi upit
                 </button>
               </form>
@@ -107,13 +144,13 @@ const Contact: React.FC = () => {
 
         {/* Google Maps Integration Section */}
         <div className="w-full h-[450px] rounded-sm overflow-hidden shadow-2xl border border-slate-200 relative group">
-          <iframe 
+          <iframe
             src={standardMapEmbed}
-            width="100%" 
-            height="100%" 
-            style={{ border: 0, filter: scrolled ? 'grayscale(0)' : 'grayscale(0.3) contrast(1.1)' }} 
-            allowFullScreen={true} 
-            loading="lazy" 
+            width="100%"
+            height="100%"
+            style={{ border: 0, filter: scrolled ? 'grayscale(0)' : 'grayscale(0.3) contrast(1.1)' }}
+            allowFullScreen={true}
+            loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             title="Lokacija Advokatske Kancelarije Rajtarov"
             className="transition-all duration-700 group-hover:grayscale-0"
@@ -121,9 +158,9 @@ const Contact: React.FC = () => {
           <div className="absolute bottom-6 left-6 bg-[#121a2b] p-6 shadow-2xl border-l-4 border-amber-600 hidden md:block">
             <h4 className="text-white font-serif font-bold text-xl mb-1">Pronađite nas lakše</h4>
             <p className="text-white/60 text-xs uppercase tracking-widest mb-4">{address}</p>
-            <a 
-              href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`} 
-              target="_blank" 
+            <a
+              href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`}
+              target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-[#121a2b] font-black px-4 py-2 rounded-sm text-[10px] uppercase tracking-widest transition-all"
             >
