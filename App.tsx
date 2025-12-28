@@ -5,7 +5,7 @@ import Expertise from './components/Expertise';
 import About from './components/About';
 import Process from './components/Process';
 import Testimonials from './components/Testimonials';
-import ChatAssistant from './components/ChatAssistant';
+
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Cases from './components/Cases';
