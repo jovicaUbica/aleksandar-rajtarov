@@ -5,15 +5,14 @@ export const getLegalAssistantResponse = async (userMessage: string) => {
   try {
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
     if (!apiKey) {
-      console.error("Gemini API Key is MISSING in environment variables!");
+      console.error("Gemini API Key is MISSING!");
       return "Greška: Nedostaje API ključ.";
     }
-    console.log("Gemini API Key found (starts with):", apiKey.substring(0, 5));
 
     const ai = new GoogleGenAI({ apiKey });
 
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-1.5-flash-001',
       contents: userMessage,
       config: {
         systemInstruction: `Vi ste Virtuelni Asistent u advokatskoj kancelariji Aleksandra Rajtarova. 
