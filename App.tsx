@@ -11,26 +11,29 @@ import Footer from './components/Footer';
 import Cases from './components/Cases';
 import FAQ from './components/FAQ';
 import WhatsAppButton from './components/WhatsAppButton';
+import LoadingScreen from './components/LoadingScreen';
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      <Navbar />
-      <main className="flex-grow">
-        <Hero />
-        <About />
-        <Expertise />
-        <Cases />
-        <Process />
-        <Testimonials />
+    <>
+      <LoadingScreen />
+      <div className="min-h-screen bg-slate-50 flex flex-col">
+        <Navbar />
+        <main className="flex-grow">
+          <Hero />
+          <About />
+          <Expertise />
+          <Cases />
+          <Process />
+          <Testimonials />
 
-        <FAQ />
-        <Contact />
-      </main>
-      <Footer />
-      <WhatsAppButton />
-    </div>
-  );
+          <FAQ />
+          <Contact />
+        </main>
+        <Footer />
+        <WhatsAppButton />
+      </div>
+      );
 }
 
-export default App;
+      export default App;
