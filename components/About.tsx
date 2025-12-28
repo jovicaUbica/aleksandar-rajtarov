@@ -8,9 +8,9 @@ const About: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center gap-10 md:gap-16 mb-16 md:mb-20">
           <div className="w-full lg:w-1/2 relative">
             <div className="relative z-10 rounded-sm overflow-hidden shadow-2xl border-b-8 border-amber-600">
-              <img 
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                alt="Advokat Aleksandar Rajtarov" 
+              <img
+                src="/aleksandar-rajtarov.jpg"
+                alt="Advokat Aleksandar Rajtarov"
                 className="w-full h-[400px] md:h-[600px] object-cover hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#121a2b]/80 to-transparent"></div>
@@ -19,7 +19,7 @@ const About: React.FC = () => {
                 <h4 className="text-3xl md:text-4xl font-serif font-bold uppercase tracking-tight">Aleksandar Rajtarov</h4>
               </div>
             </div>
-            
+
             <div className="hidden md:block absolute -bottom-10 -left-10 w-64 h-64 bg-slate-50 rounded-sm -z-0"></div>
             <div className="hidden md:block absolute -top-10 -right-10 w-40 h-40 border-[16px] border-[#121a2b]/5 rounded-full -z-0"></div>
           </div>
@@ -28,7 +28,7 @@ const About: React.FC = () => {
             <div className="text-3xl font-serif text-[#121a2b] mb-4 opacity-20">AP</div>
             <h2 className="text-amber-600 text-xs md:text-sm font-bold uppercase tracking-[0.4em] mb-4">Profesionalna Biografija</h2>
             <h3 className="text-4xl md:text-6xl font-serif text-[#121a2b] font-bold mb-8 italic leading-tight">Autoritet izgrađen na <br className="hidden sm:block" />znanju i uspesima.</h3>
-            
+
             <div className="space-y-6 text-slate-600 text-lg leading-relaxed">
               <p>
                 <span className="text-[#121a2b] font-bold">Aleksandar Rajtarov</span> je diplomirani pravnik čija je karijera obeležena rešavanjem najkompleksnijih pravnih pitanja u domenu privrednog, građanskog i krivičnog prava.
