@@ -12,6 +12,7 @@ import Cases from './components/Cases';
 import FAQ from './components/FAQ';
 import WhatsAppButton from './components/WhatsAppButton';
 import LoadingScreen from './components/LoadingScreen';
+import BackToTop from './components/BackToTop';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         </main>
         <Footer />
         <WhatsAppButton />
+        <BackToTop />
       </div>
     </>
   );
